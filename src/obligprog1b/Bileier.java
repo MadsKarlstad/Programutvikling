@@ -1,6 +1,6 @@
 
 package obligprog1b;
-//HEI hilsen Mads
+
 public abstract class Bileier 
 {
     String navn;
