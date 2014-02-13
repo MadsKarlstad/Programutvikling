@@ -1,15 +1,21 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package obligprog1b;
 
-/**
- *
- * @author madsmkarlstad
- */
+import java.awt.event.*;
+
 public class Bileierdriver 
 {
+    public static void main(String[]args)
+    {
+        BileierGUI vindu = new BileierGUI();
+        vindu.addWindowListener(
+                new WindowAdapter()
+                {
+                    public void windowClosing(WindowEvent e)
+                    {
+                        System.exit(0);
+                    }
+                });
+    }
 
 }

@@ -1,3 +1,9 @@
+/**
+ * Skrevet av: 
+ * Mads M Karlstad, studnr: s193949, HINGDATA
+ * Erlend Westbye, studnr: s193377, HINGDATA
+ * Christoffer B Jønsberg: s193674, HINGDATA
+ */
 
 package obligprog1b;
 
@@ -5,22 +11,27 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class BileierGUI 
+public class BileierGUI extends JFrame
 {
-    /*private JTextField kjennetegnfelt, merkefelt, typefelt, årfelt;
-    private JButton regBil, finnBil, fjernBil, visAlle;
+    private JTextField navnfelt, adressefelt, personnrfelt, foretaksnrfelt, kjennetegnfelt, merkefelt, typefelt, årfelt;
+    private JButton regEier, regBil, finnBil, fjernBil, visAlle;
     private JTextArea utskriftsområde;
-    private Billiste register = new Billiste();*/
+    private BillisteB register = new BillisteB();
     
     public BileierGUI()
     {
-        /*super("BileierGUI");
+        super("BileierGUI");
      
         kjennetegnfelt = new JTextField(18);
         merkefelt = new JTextField(18);
         typefelt = new JTextField(18);
         årfelt = new JTextField(18);
+        navnfelt = new JTextField(18);
+        adressefelt = new JTextField(18);
+        personnrfelt = new JTextField(18);
+        foretaksnrfelt = new JTextField(18);
         regBil = new JButton("Registrer bil");
+        regEier = new JButton("Registrer bileier");
         finnBil = new JButton("Finn bil");
         fjernBil = new JButton("Fjern bil");
         visAlle = new JButton("Vis alle registrerte");
@@ -37,11 +48,20 @@ public class BileierGUI
         c.add(typefelt);
         c.add(new JLabel("Første reg.år: "));
         c.add(årfelt);
+        c.add(new JLabel("Navn: "));
+        c.add(navnfelt);
+        c.add(new JLabel("Adresse: "));
+        c.add(adressefelt);
+        c.add(new JLabel("Personnummer: "));
+        c.add(personnrfelt);
+        c.add(new JLabel("Foretaksnummer: "));
+        c.add(foretaksnrfelt);
         c.add(new JLabel("          "));
         c.add(regBil);
         c.add(finnBil);
         c.add(fjernBil);
         c.add(visAlle);
+        c.add(regEier);
         c.add(new JScrollPane(utskriftsområde));
         
         Knappelytter lytter = new Knappelytter();
@@ -51,7 +71,120 @@ public class BileierGUI
         fjernBil.addActionListener(lytter);
         visAlle.addActionListener(lytter);
         setSize(620,500);
-        setVisible(true);*/
+        setVisible(true);
+    }
+    
+    public void nyBil()
+    {
+       String kjennetegn = kjennetegnfelt.getText();
+       String merke = merkefelt.getText();
+       String type = typefelt.getText();
+       String regår = årfelt.getText();
+       if(kjennetegn.length() == 0 || merke.length() == 0
+	|| type.length() == 0 || regår.length() == 0)
+       {
+           visMelding("Fyll ut nødvendig informasjon!");
+           return;
+       }
+       try
+       {
+           register.settInn(
+                   new Bil(kjennetegn,merke,type,regår));
+           visMelding("Ny bil registrert");
+           slettFelter();
+       }
+       catch(NumberFormatException e)
+       {
+           visMelding("Feil i tallformat");
+       }
+    }
+    
+    public void finnBil()
+    {
+        String kjennetegn = kjennetegnfelt.getText();
+        if(kjennetegn.length() == 0)
+        {
+            visMelding("Skriv inn regnr plz");
+            slettFelter();
+        }
+        Bil b = register.finn(kjennetegn);
+        if(b!=null)
+        {
+            
+            register.skrivListe(utskriftsområde);
+            slettFelter();
+            
+        }
+        
+        /*try
+        {
+            
+            register.finn(kjennetegn);
+        
+        }
+        catch(NumberFormatException e)
+        {
+            visMelding("Feil i tallformat");
+        }*/
+        
+    }
+    
+   public void slettBil()
+   {
+
+       String kjennetegn = kjennetegnfelt.getText();
+       if(kjennetegn.length() == 0)
+       {
+            visMelding("Skriv inn regnr plz");
+            slettFelter();
+       }
+       try
+       {
+           utskriftsområde.setText("");
+           register.fjern(kjennetegn);
+           slettFelter();
+           
+       }
+       
+       catch(NumberFormatException nfe)
+       {
+           visMelding("Feil i tallformat");
+       }
+           
+       
+    }
+    public void visRegister()
+    {
+        utskriftsområde.setText("");
+        register.skrivListe(utskriftsområde);
+    }
+    
+    private void visMelding( String melding)
+    {
+        JOptionPane.showMessageDialog(this,melding);
+    }
+    
+    private void slettFelter()
+    {
+        kjennetegnfelt.setText( "" );
+        merkefelt.setText( "" );
+        typefelt.setText( "" );
+        årfelt.setText( "" );
+    }
+    
+    private class Knappelytter implements ActionListener
+    {
+        public void actionPerformed( ActionEvent e )
+        {
+            if ( e.getSource() == regBil )
+                nyBil();
+            else if ( e.getSource() == finnBil )
+                finnBil();
+            else if ( e.getSource() == fjernBil )
+                slettBil();
+            else if ( e.getSource() == visAlle )
+                visRegister();
+        }
     }
 
 }
