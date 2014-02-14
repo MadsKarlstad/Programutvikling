@@ -83,16 +83,20 @@ public class BileierGUI extends JFrame
        String merke = merkefelt.getText();
        String type = typefelt.getText();
        String regår = årfelt.getText();
+       String nr = nrfelt.getText();
+       String navn = navnfelt.getText();
+       String adresse = adressefelt.getText();
        if(kjennetegn.length() == 0 || merke.length() == 0
-	|| type.length() == 0 || regår.length() == 0)
+	|| type.length() == 0 || regår.length() == 0 || nr.length() == 0)
        {
            visMelding("Fyll ut nødvendig informasjon!");
            return;
        }
        try
        {
+           Bileier bileier = new Person(nr, navn, adresse);
            register.settInn(
-                   new Bil(kjennetegn,merke,type,regår));
+                   new Bil(kjennetegn,merke,type,regår, bileier));
            visMelding("Ny bil registrert");
            slettFelter();
        }
@@ -104,9 +108,10 @@ public class BileierGUI extends JFrame
     
     public void nyBileierPers()
     {
-       String nummer = nrfelt.getText();
+      
        String navn = navnfelt.getText();
        String adresse = adressefelt.getText();
+       String nummer = nrfelt.getText();
        if(nummer.length() == 0 || navn.length() == 0
 	|| adresse.length() == 0)
        {
@@ -117,7 +122,7 @@ public class BileierGUI extends JFrame
        {
            liste.settInn(
                    new Person(nummer,navn,adresse));
-           visMelding("Ny bil registrert");
+           visMelding("Ny bileier registrert");
            slettFelter();
        }
        catch(NumberFormatException e)
@@ -141,7 +146,7 @@ public class BileierGUI extends JFrame
        {
            liste.settInn(
                    new Firma(nummer,navn,adresse));
-           visMelding("Ny bil registrert");
+           visMelding("Ny bileier registrert");
            slettFelter();
        }
        catch(NumberFormatException e)
@@ -167,16 +172,6 @@ public class BileierGUI extends JFrame
             
         }
         
-        /*try
-        {
-            
-            register.finn(kjennetegn);
-        
-        }
-        catch(NumberFormatException e)
-        {
-            visMelding("Feil i tallformat");
-        }*/
         
     }
     
@@ -221,6 +216,9 @@ public class BileierGUI extends JFrame
         merkefelt.setText( "" );
         typefelt.setText( "" );
         årfelt.setText( "" );
+        navnfelt.setText("");
+        adressefelt.setText("");
+        nrfelt.setText("");
     }
     
     private class Knappelytter implements ActionListener

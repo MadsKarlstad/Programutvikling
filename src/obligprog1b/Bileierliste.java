@@ -58,6 +58,7 @@ public class Bileierliste
             }
         }
     }
+
     
     public Bil fjern( String kjennetegn )
         {

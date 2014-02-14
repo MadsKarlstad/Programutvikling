@@ -7,23 +7,24 @@ public class Bil
     private String merke;
     private String type;
     private String regår;
+    private Bileier eier;
     //private String eier;
     
     Bil neste;
     
-    public Bil(String k, String m, String t, String r)
+    public Bil(String k, String m, String t, String r, Bileier e)
     {
         kjennetegn = k;
         merke = m;
         type = t;
         regår = r;
-        //eier = e;
+        eier = e;
     }
     
-    /*public String getEier()
+    public Bileier getEier()
     {
         return eier;
-    }*/
+    }
     
     public String getKjennetegn()
     {

@@ -15,5 +15,12 @@ public abstract class Bileier
         navn = n;
         adresse = a;
     }
+    
+    public String toString()
+    {
+        String s = "dasdas";
+        
+        return s;
+    }
 }
 
