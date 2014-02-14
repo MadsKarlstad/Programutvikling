@@ -13,10 +13,12 @@ import java.awt.event.*;
 
 public class BileierGUI extends JFrame
 {
-    private JTextField navnfelt, adressefelt, personnrfelt, foretaksnrfelt, kjennetegnfelt, merkefelt, typefelt, årfelt;
-    private JButton regEier, regBil, finnBil, fjernBil, visAlle;
+    private JTextField navnfelt, adressefelt, nrfelt, 
+                       kjennetegnfelt, merkefelt, typefelt, årfelt;
+    private JButton regEierP, regEierF, regBil, finnBil, fjernBil, visAlle;
     private JTextArea utskriftsområde;
     private BillisteB register = new BillisteB();
+    private Bileierliste liste = new Bileierliste();
     
     public BileierGUI()
     {
@@ -28,10 +30,10 @@ public class BileierGUI extends JFrame
         årfelt = new JTextField(18);
         navnfelt = new JTextField(18);
         adressefelt = new JTextField(18);
-        personnrfelt = new JTextField(18);
-        foretaksnrfelt = new JTextField(18);
+        nrfelt = new JTextField(18);
         regBil = new JButton("Registrer bil");
-        regEier = new JButton("Registrer bileier");
+        regEierP = new JButton("Registrer bileier(privat)");
+        regEierF = new JButton("Registrer bileier(firma)");
         finnBil = new JButton("Finn bil");
         fjernBil = new JButton("Fjern bil");
         visAlle = new JButton("Vis alle registrerte");
@@ -52,20 +54,21 @@ public class BileierGUI extends JFrame
         c.add(navnfelt);
         c.add(new JLabel("Adresse: "));
         c.add(adressefelt);
-        c.add(new JLabel("Personnummer: "));
-        c.add(personnrfelt);
-        c.add(new JLabel("Foretaksnummer: "));
-        c.add(foretaksnrfelt);
+        c.add(new JLabel("Person- eller foretaksnummer: "));
+        c.add(nrfelt);
         c.add(new JLabel("          "));
         c.add(regBil);
         c.add(finnBil);
         c.add(fjernBil);
         c.add(visAlle);
-        c.add(regEier);
+        c.add(regEierP);
+        c.add(regEierF);
         c.add(new JScrollPane(utskriftsområde));
         
         Knappelytter lytter = new Knappelytter();
         
+        regEierP.addActionListener(lytter);
+        regEierF.addActionListener(lytter);
         regBil.addActionListener(lytter);
         finnBil.addActionListener(lytter);
         fjernBil.addActionListener(lytter);
@@ -90,6 +93,54 @@ public class BileierGUI extends JFrame
        {
            register.settInn(
                    new Bil(kjennetegn,merke,type,regår));
+           visMelding("Ny bil registrert");
+           slettFelter();
+       }
+       catch(NumberFormatException e)
+       {
+           visMelding("Feil i tallformat");
+       }
+    }
+    
+    public void nyBileierPers()
+    {
+       String nummer = nrfelt.getText();
+       String navn = navnfelt.getText();
+       String adresse = adressefelt.getText();
+       if(nummer.length() == 0 || navn.length() == 0
+	|| adresse.length() == 0)
+       {
+           visMelding("Fyll ut nødvendig informasjon!");
+           return;
+       }
+       try
+       {
+           liste.settInn(
+                   new Person(nummer,navn,adresse));
+           visMelding("Ny bil registrert");
+           slettFelter();
+       }
+       catch(NumberFormatException e)
+       {
+           visMelding("Feil i tallformat");
+       }
+    }
+    
+        public void nyBileierFirma()
+    {
+       String nummer = nrfelt.getText();
+       String navn = navnfelt.getText();
+       String adresse = adressefelt.getText();
+       if(nummer.length() == 0 || navn.length() == 0
+	|| adresse.length() == 0)
+       {
+           visMelding("Fyll ut nødvendig informasjon!");
+           return;
+       }
+       try
+       {
+           liste.settInn(
+                   new Firma(nummer,navn,adresse));
            visMelding("Ny bil registrert");
            slettFelter();
        }
@@ -156,7 +207,7 @@ public class BileierGUI extends JFrame
     public void visRegister()
     {
         utskriftsområde.setText("");
-        register.skrivListe(utskriftsområde);
+        liste.skrivListe(utskriftsområde);
     }
     
     private void visMelding( String melding)
@@ -178,6 +229,10 @@ public class BileierGUI extends JFrame
         {
             if ( e.getSource() == regBil )
                 nyBil();
+            else if(e.getSource() == regEierP)
+                nyBileierPers();
+            else if(e.getSource() == regEierF)
+                nyBileierFirma();
             else if ( e.getSource() == finnBil )
                 finnBil();
             else if ( e.getSource() == fjernBil )
