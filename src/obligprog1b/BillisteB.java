@@ -4,9 +4,9 @@ package obligprog1b;
 import javax.swing.JTextArea;
 
 
-public class BillisteB 
+public class BillisteB extends Bileierliste
 {
-        private Bil første;
+    private Bil første;
     
     public void settInn(Bil ny)
     {
@@ -23,11 +23,9 @@ public class BillisteB
                 løper = løper.neste;
             }
             løper.neste = ny;
-        }
-        
-        
+        }  
     }
-    public Bil finn(String kjennetegn)
+    public Bil finnBil(String kjennetegn)
     {
                 Bil løper = første;
         while(løper != null){
@@ -38,12 +36,11 @@ public class BillisteB
                 løper = løper.neste;
             }
         }
-        return null;
-        
+        return null;     
     }
        
-        public Bil fjern( String kjennetegn )
-        {
+    public Bil fjern( String kjennetegn )
+    {
             if( første == null ) 
                 return null;
 
@@ -84,7 +81,7 @@ public class BillisteB
                 biler.append(løper.toString() + "\n\n");
                 løper = løper.neste;
             }
-        }
+        }      
     }
-
+ 
 }

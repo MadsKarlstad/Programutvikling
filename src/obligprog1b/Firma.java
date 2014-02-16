@@ -11,7 +11,7 @@ public class Firma extends Bileier
         foretaksnr = fnr;
     }
     
-    public String getForetaksnr()
+    public String getNr()
     {
         return foretaksnr;
     }
@@ -21,6 +21,8 @@ public class Firma extends Bileier
         String s = "Navn: " + navn
         +"\nAdresse: " + adresse
         +"\nForetaksnummer: " + foretaksnr;
+        s+="\n*********************************";
+        s+="\nBil: ";
         
         
         return s;

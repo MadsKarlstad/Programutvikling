@@ -4,6 +4,7 @@ package obligprog1b;
 public class Person extends Bileier
 {
     private String personnr;
+    private Bil første;
     
     public Person(String pnr, String n, String a )
     {
@@ -12,7 +13,7 @@ public class Person extends Bileier
         personnr = pnr;
     }
     
-    public String getPersonnr()
+    public String getNr()
     {
         return personnr;
     }
@@ -22,6 +23,8 @@ public class Person extends Bileier
         String s = "Navn: " + navn
         +"\nAdresse: " + adresse
         +"\nFødselsnummer: " + personnr;
+        s+="\n*********************************";
+        s+="\nBil: ";
         return s;
     }
     

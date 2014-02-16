@@ -26,23 +26,24 @@ public class Bileierliste
         }
     }
     
-    public void settInn(Bil ny)
+    public Bileier finn(String nr)
     {
-        if(first==null)
+          Bileier løper = første;
+        while(løper != null)
         {
-            first = ny;
-            return;
-        }
-        else
-        {
-            Bil løper = first;
-            while(løper.neste != null)
+            if((løper.getNr()).equalsIgnoreCase(nr))//denne metoden må endres, fungerer ikke
+            {
+                return løper;
+            }
+            else
             {
                 løper = løper.neste;
             }
-            løper.neste = ny;
         }
+        return null;
+        
     }
+    
     
     public void skrivListe(JTextArea bileiere)
     {
@@ -54,39 +55,10 @@ public class Bileierliste
             while(løper!=null)
             {
                 bileiere.append(løper.toString() + "\n\n");
+                
                 løper = løper.neste;
             }
         }
     }
-
-    
-    public Bil fjern( String kjennetegn )
-        {
-            if( first == null ) 
-                return null;
-
-            if( first.getKjennetegn().equals( kjennetegn ) )
-            {
-                Bil retur = first;
-                first = first.neste;
-                return retur;
-            }
-
-            Bil løper = first;
-
-            while( løper.neste != null )
-            {
-                if( løper.neste.getKjennetegn().equals( kjennetegn ) )
-                {
-                    Bil retur = løper.neste;
-                    løper.neste = løper.neste.neste;
-                    return retur;
-                }
-                else
-                løper = løper.neste;
-                }
-
-            return null;
-  }
 
 }

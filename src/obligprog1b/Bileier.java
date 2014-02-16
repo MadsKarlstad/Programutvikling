@@ -18,9 +18,15 @@ public abstract class Bileier
     
     public String toString()
     {
-        String s = "dasdas";
+        String s = "";
+        s += "Bil: \n";
+        
         
         return s;
+    }
+
+    public String getNr() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
 

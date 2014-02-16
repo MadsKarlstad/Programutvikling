@@ -95,6 +95,8 @@ public class BileierGUI extends JFrame
        try
        {
            Bileier bileier = new Person(nr, navn, adresse);
+           liste.settInn(
+                   new Person(nr,navn,adresse));
            register.settInn(
                    new Bil(kjennetegn,merke,type,regår, bileier));
            visMelding("Ny bil registrert");
@@ -163,7 +165,7 @@ public class BileierGUI extends JFrame
             visMelding("Skriv inn regnr plz");
             slettFelter();
         }
-        Bil b = register.finn(kjennetegn);
+        Bil b = register.finnBil(kjennetegn);
         if(b!=null)
         {
             
@@ -174,6 +176,24 @@ public class BileierGUI extends JFrame
         
         
     }
+    
+    /*public void finnBileier()
+    {
+        String nr = nrfelt.getText();
+        if(nr.length() == 0)
+        {
+            visMelding("Skriv inn person- eller foretaksnummer plz");
+            slettFelter();
+        }
+        Bil b = liste.finn(nr);
+        if(b!=null)
+        {
+            
+            register.skrivListe(utskriftsområde);
+            slettFelter();
+            
+        }
+    }*/
     
    public void slettBil()
    {
