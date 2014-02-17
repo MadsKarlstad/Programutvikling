@@ -4,11 +4,12 @@ package obligprog1b;
 public class Firma extends Bileier
 {
     private String foretaksnr;
+    private Bil bil;
     
-    Firma(String fnr, String n, String a )
+    Firma(String n, String a, String nr )
     {
-        super(n,a);
-        foretaksnr = fnr;
+        super(n,a,nr);
+        foretaksnr = nr;
     }
     
     public String getNr()
@@ -18,11 +19,12 @@ public class Firma extends Bileier
     
     public String toString()
     {
-        String s = "Navn: " + navn
-        +"\nAdresse: " + adresse
-        +"\nForetaksnummer: " + foretaksnr;
+
+        String s="Navn: " + navn;
+        s+="\nAdresse: " + adresse;
+        s+="\nForetaksnummer: " + foretaksnr;
         s+="\n*********************************";
-        s+="\nBil: ";
+        
         
         
         return s;

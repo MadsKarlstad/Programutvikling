@@ -3,7 +3,7 @@ package obligprog1b;
 
 import javax.swing.*;
 
-public class Bileierliste 
+public class Bileierliste
 {
     private Bileier første;
     private Bil first;
@@ -44,6 +44,34 @@ public class Bileierliste
         
     }
     
+    public Bileier fjernEier( String nr )
+    {
+            if( første == null ) 
+                return null;
+
+            if( første.getNr().equals( nr ) )
+            {
+                Bileier retur = første;
+                første = første.neste;
+                return retur;
+            }
+
+            Bileier løper = første;
+
+            while( løper.neste != null )
+            {
+                if( løper.neste.getNr().equals( nr ) )
+                {
+                    Bileier retur = løper.neste;
+                    løper.neste = løper.neste.neste;
+                    return retur;
+                }
+                else
+                løper = løper.neste;
+                }
+
+            return null;
+  }
     
     public void skrivListe(JTextArea bileiere)
     {
@@ -55,7 +83,6 @@ public class Bileierliste
             while(løper!=null)
             {
                 bileiere.append(løper.toString() + "\n\n");
-                
                 løper = løper.neste;
             }
         }

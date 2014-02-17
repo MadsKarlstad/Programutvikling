@@ -15,7 +15,8 @@ public class BileierGUI extends JFrame
 {
     private JTextField navnfelt, adressefelt, nrfelt, 
                        kjennetegnfelt, merkefelt, typefelt, årfelt;
-    private JButton regEierP, regEierF, regBil, finnBil, fjernBil, visAlle;
+    private JButton regEierP, regEierF, regBil, finnBil, fjernBil, 
+                    visAlle, visEiere, slettEier;
     private JTextArea utskriftsområde;
     private BillisteB register = new BillisteB();
     private Bileierliste liste = new Bileierliste();
@@ -36,7 +37,9 @@ public class BileierGUI extends JFrame
         regEierF = new JButton("Registrer bileier(firma)");
         finnBil = new JButton("Finn bil");
         fjernBil = new JButton("Fjern bil");
-        visAlle = new JButton("Vis alle registrerte");
+        visAlle = new JButton("Vis bilregisteret");
+        visEiere = new JButton("Vis alle bileiere");
+        slettEier = new JButton("Slett bileier");
         utskriftsområde = new JTextArea(15,45);
         utskriftsområde.setEditable(false);
         
@@ -61,8 +64,10 @@ public class BileierGUI extends JFrame
         c.add(finnBil);
         c.add(fjernBil);
         c.add(visAlle);
+        c.add(visEiere);
         c.add(regEierP);
         c.add(regEierF);
+        c.add(slettEier);
         c.add(new JScrollPane(utskriftsområde));
         
         Knappelytter lytter = new Knappelytter();
@@ -73,6 +78,8 @@ public class BileierGUI extends JFrame
         finnBil.addActionListener(lytter);
         fjernBil.addActionListener(lytter);
         visAlle.addActionListener(lytter);
+        visEiere.addActionListener(lytter);
+        slettEier.addActionListener(lytter);
         setSize(620,500);
         setVisible(true);
     }
@@ -133,7 +140,7 @@ public class BileierGUI extends JFrame
        }
     }
     
-        public void nyBileierFirma()
+    public void nyBileierFirma()
     {
        String nummer = nrfelt.getText();
        String navn = navnfelt.getText();
@@ -167,33 +174,11 @@ public class BileierGUI extends JFrame
         }
         Bil b = register.finnBil(kjennetegn);
         if(b!=null)
-        {
-            
+        {           
             register.skrivListe(utskriftsområde);
-            slettFelter();
-            
-        }
-        
-        
+            slettFelter();           
+        }     
     }
-    
-    /*public void finnBileier()
-    {
-        String nr = nrfelt.getText();
-        if(nr.length() == 0)
-        {
-            visMelding("Skriv inn person- eller foretaksnummer plz");
-            slettFelter();
-        }
-        Bil b = liste.finn(nr);
-        if(b!=null)
-        {
-            
-            register.skrivListe(utskriftsområde);
-            slettFelter();
-            
-        }
-    }*/
     
    public void slettBil()
    {
@@ -219,10 +204,42 @@ public class BileierGUI extends JFrame
            
        
     }
+   
+    public void slettEier()
+    {
+
+       String nr = nrfelt.getText();
+       if(nr.length() == 0)
+       {
+            visMelding("Skriv inn regnr plz");
+            slettFelter();
+       }
+       try
+       {
+           utskriftsområde.setText("");
+           liste.fjernEier(nr);
+           slettFelter();
+           
+       }
+       
+       catch(NumberFormatException nfe)
+       {
+           visMelding("Feil i tallformat");
+       }
+           
+       
+    }
+   
     public void visRegister()
     {
         utskriftsområde.setText("");
+        register.skrivListe(utskriftsområde);
+    }
+    public void visEiere()
+    {
+        utskriftsområde.setText("");
         liste.skrivListe(utskriftsområde);
+        
     }
     
     private void visMelding( String melding)
@@ -257,6 +274,10 @@ public class BileierGUI extends JFrame
                 slettBil();
             else if ( e.getSource() == visAlle )
                 visRegister();
+            else if ( e.getSource() == visEiere )
+                visEiere();
+            else if ( e.getSource() == slettEier )
+                slettEier();
         }
     }
 

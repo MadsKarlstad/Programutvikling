@@ -4,7 +4,7 @@ package obligprog1b;
 import javax.swing.JTextArea;
 
 
-public class BillisteB extends Bileierliste
+public class BillisteB
 {
     private Bil første;
     

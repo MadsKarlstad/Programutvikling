@@ -17,7 +17,7 @@ public class Bil
         merke = m;
         type = t;
         regår = r;
-        this.eier = eier;
+        this.eier = e;
     }
     
     public String getKjennetegn()
@@ -28,14 +28,12 @@ public class Bil
     public String toString()
     {
         
-        String s = "Bil: \n";
-        
+        String s = "Bil: ";
         s += "\nKjennetegn: " + kjennetegn;
         s += "\nMerke: " + merke;
         s += "\nType: " + type;
         s += "\nFørst registrert: " + regår;
-        s+="\n********************";
-        s += "\nEier: " + eier;
+        s += "\n\nEier: \n" + eier;
         return s;
     }
 
