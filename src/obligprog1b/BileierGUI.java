@@ -90,9 +90,10 @@ public class BileierGUI extends JFrame
        String merke = merkefelt.getText();
        String type = typefelt.getText();
        String regår = årfelt.getText();
-       String nr = nrfelt.getText();
        String navn = navnfelt.getText();
        String adresse = adressefelt.getText();
+       String nr = nrfelt.getText();
+       
        if(kjennetegn.length() == 0 || merke.length() == 0
 	|| type.length() == 0 || regår.length() == 0 || nr.length() == 0)
        {
@@ -101,20 +102,23 @@ public class BileierGUI extends JFrame
        }
        try
        {
-           Bileier bileier = new Person(nr, navn, adresse);
+           
+           
+           Bileier bileier = new Person(navn, adresse, nr);
+           
            liste.settInn(
-                   new Person(nr,navn,adresse));
+                   new Person(navn,adresse,nr));
            register.settInn(
-                   new Bil(kjennetegn,merke,type,regår, bileier));
+                   new Bil(kjennetegn,merke,type,regår));
            visMelding("Ny bil registrert");
            slettFelter();
        }
-       catch(NumberFormatException e)
+       catch(NullPointerException n)
        {
-           visMelding("Feil i tallformat");
+           visMelding("Feil i registeret");
        }
     }
-    
+
     public void nyBileierPers()
     {
       
@@ -130,13 +134,13 @@ public class BileierGUI extends JFrame
        try
        {
            liste.settInn(
-                   new Person(nummer,navn,adresse));
+                   new Person(navn,adresse,nummer));
            visMelding("Ny bileier registrert");
            slettFelter();
        }
-       catch(NumberFormatException e)
+       catch(NullPointerException e)
        {
-           visMelding("Feil i tallformat");
+           visMelding("Feil i registeret");
        }
     }
     
@@ -154,11 +158,11 @@ public class BileierGUI extends JFrame
        try
        {
            liste.settInn(
-                   new Firma(nummer,navn,adresse));
+                   new Firma(navn,adresse,nummer));
            visMelding("Ny bileier registrert");
            slettFelter();
        }
-       catch(NumberFormatException e)
+       catch(NullPointerException e)
        {
            visMelding("Feil i tallformat");
        }
@@ -179,7 +183,7 @@ public class BileierGUI extends JFrame
             slettFelter();           
         }     
     }
-    
+
    public void slettBil()
    {
 
@@ -197,9 +201,9 @@ public class BileierGUI extends JFrame
            
        }
        
-       catch(NumberFormatException nfe)
+       catch(NullPointerException n)
        {
-           visMelding("Feil i tallformat");
+           visMelding("Feil i registeret");
        }
            
        
@@ -207,27 +211,48 @@ public class BileierGUI extends JFrame
    
     public void slettEier()
     {
-
-       String nr = nrfelt.getText();
-       if(nr.length() == 0)
-       {
-            visMelding("Skriv inn regnr plz");
+        
+        String nr = nrfelt.getText();
+        
+        if(nr.length() == 0 )
+        {
+            visMelding("Skriv inn nr plz");
             slettFelter();
-       }
-       try
-       {
-           utskriftsområde.setText("");
-           liste.fjernEier(nr);
-           slettFelter();
+        }
+        Bileier test = liste.finn(nr);
+        if(test!=null)
+        {
+            if(!test.emptyBil())
+            {
+                visMelding("Eieren har en bil registrert og kan ikke slettes");
+                slettFelter();
+            }
+            else if(liste.fjernEier(nr))
+            {
+                visMelding("Eieren er slettet!");
+                slettFelter();
+                
+            }
+        }
+        else
+        {
+            visMelding("Finner ikke eier");
+        }
+        /*{
+            utskriftsområde.setText("");
+            liste.fjernEier(nr);
+            slettFelter();
+            
            
-       }
-       
-       catch(NumberFormatException nfe)
-       {
-           visMelding("Feil i tallformat");
-       }
-           
-       
+        }
+
+        catch(NullPointerException n)
+        {
+            visMelding("Feil i registeret");
+        }*/
+        
+        
+  
     }
    
     public void visRegister()

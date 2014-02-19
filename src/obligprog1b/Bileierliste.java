@@ -25,13 +25,13 @@ public class Bileierliste
             løper.neste=ny;
         }
     }
-    
+ 
     public Bileier finn(String nr)
     {
-          Bileier løper = første;
+        Bileier løper = første;
         while(løper != null)
         {
-            if((løper.getNr()).equalsIgnoreCase(nr))//denne metoden må endres, fungerer ikke
+            if((løper.getNr()).equalsIgnoreCase(nr))
             {
                 return løper;
             }
@@ -43,38 +43,81 @@ public class Bileierliste
         return null;
         
     }
-    
-    public Bileier fjernEier( String nr )
+    public Bil finnBil(String nr)
     {
-            if( første == null ) 
-                return null;
-
-            if( første.getNr().equals( nr ) )
+        Bileier løper = første;
+        while(løper != null)
+        {
+            if(løper.finnBil(nr)!=null)
             {
-                Bileier retur = første;
-                første = første.neste;
-                return retur;
+                return løper.finnBil(nr);     
             }
-
-            Bileier løper = første;
-
-            while( løper.neste != null )
+            else
             {
-                if( løper.neste.getNr().equals( nr ) )
-                {
-                    Bileier retur = løper.neste;
-                    løper.neste = løper.neste.neste;
-                    return retur;
-                }
-                else
                 løper = løper.neste;
-                }
+            }
+        }
+        return null;
+        
+    }
 
-            return null;
-  }
     
-    public void skrivListe(JTextArea bileiere)
-    {
+  public boolean fjernEier( String nr )
+  {
+      if(EierEmpty())
+          return false;
+      if((første.getNr().equalsIgnoreCase(nr)))
+      {
+          første=første.neste;
+          return true;
+      }
+      else
+      {
+          Bileier løper = første;
+          while(løper.neste!=null)
+          {
+              if(løper.neste.getNr().equalsIgnoreCase(nr))
+              {
+                  løper.neste=løper.neste.neste;
+                  return true;
+              }
+              løper = løper.neste;
+          }
+          return false;
+      }
+  }
+
+  public boolean EierEmpty()
+  {
+        Bileier løper = første;
+        if(første==null)
+        {
+            while(løper.neste == null)
+            return true;
+        }
+        return false;
+  }
+  
+  public Bileier finnBileier(String nr)
+  {
+      Bileier løper = første;
+      while(løper!=null)
+      {
+          if((løper.getNr()).equals(nr))
+          {
+              return løper;
+          }
+          else
+          {
+              løper = løper.neste;
+          }
+      }
+      return null;
+  }
+
+    
+  public void skrivListe(JTextArea bileiere)
+  {
         if(første==null)
             bileiere.append("Ingen bileiere registrert.");
         else
@@ -86,6 +129,6 @@ public class Bileierliste
                 løper = løper.neste;
             }
         }
-    }
+  }
 
 }

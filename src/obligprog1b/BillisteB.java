@@ -10,7 +10,7 @@ public class BillisteB
     
     public void settInn(Bil ny)
     {
-        if(første==null)
+        if(BilEmpty())
         {
             første = ny;
             return;
@@ -37,6 +37,27 @@ public class BillisteB
             }
         }
         return null;     
+    }
+    
+    public boolean fjernBil(String kjennetegn)
+    {
+        if((første.getKjennetegn()).equalsIgnoreCase(kjennetegn)){
+            første = første.neste;
+            return true;
+        }
+        else{
+            Bil løper = første;
+            while(løper.neste!=null){
+                if((løper.neste.getKjennetegn()).equalsIgnoreCase(kjennetegn)){
+                    løper.neste = løper.neste.neste;
+                    return true;
+                }
+                else{
+                    løper = løper.neste;
+                }
+            }
+            return false;
+        }
     }
        
     public Bil fjern( String kjennetegn )
@@ -67,6 +88,17 @@ public class BillisteB
 
             return null;
   }
+    public boolean BilEmpty()
+    {
+        if(første==null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
         
   public void skrivListe(JTextArea biler)
   {

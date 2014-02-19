@@ -4,14 +4,12 @@ package obligprog1b;
 public class Person extends Bileier
 {
     private String personnr;
-    private Bil bil;
-    private Bil første;
     
-    public Person(String n, String a, String nr )
+    public Person(String n, String adr, String Nr )
     {
 
-        super(n,a,nr);
-        personnr = nr;
+        super(n,adr,Nr);
+        personnr = Nr;
         //this.bil=b;
         
     }
@@ -23,9 +21,9 @@ public class Person extends Bileier
     
     public String toString()
     {
-        String s = "Navn: " + navn;
-        s+="\nAdresse: " + adresse;
-        s+="\nFødselsnummer: " + personnr;
+        String s = "Navn: " + navn + "\n";
+        s+="Adresse: " + adresse + "\n";
+        s+= "Personnummer: " + personnr + "\n";
         s+="\n*********************************";
         
         return s;

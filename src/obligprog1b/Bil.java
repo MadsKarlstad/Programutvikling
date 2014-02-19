@@ -11,20 +11,21 @@ public class Bil
     
     Bil neste;
     
-    public Bil(String k, String m, String t, String r, Bileier e)
+    public Bil(String k, String m, String t, String r)
     {
         kjennetegn = k;
         merke = m;
         type = t;
         regår = r;
-        this.eier = e;
+        neste=null;
+        //this.eier = e;
     }
     
     public String getKjennetegn()
     {
         return kjennetegn;
     }
-    
+        
     public String toString()
     {
         

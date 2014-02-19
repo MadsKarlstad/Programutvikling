@@ -4,11 +4,10 @@ package obligprog1b;
 public class Firma extends Bileier
 {
     private String foretaksnr;
-    private Bil bil;
     
-    Firma(String n, String a, String nr )
+    Firma(String n, String adr, String nr )
     {
-        super(n,a,nr);
+        super(n,adr,nr);
         foretaksnr = nr;
     }
     
