@@ -11,14 +11,11 @@ public abstract class Bileier
     
     Bileier neste;
     
-    
-    private BillisteB register = new BillisteB();
-    
     public Bileier(String n, String adr, String Nr)
     {
         navn = n;
         adresse = adr;
-        //this.bil = b;
+        
     }
     
     public String toString()
@@ -27,10 +24,10 @@ public abstract class Bileier
         return s;
     }
 
-    public String getNr() 
-    {
+    public abstract String getNr();
+    /*{
         return Nr; //To change body of generated methods, choose Tools | Templates.
-    }
+    }*/
     public void settInnBil(Bil ny)
     {
         try

@@ -86,37 +86,62 @@ public class BileierGUI extends JFrame
     
     public void nyBil()
     {
-       String kjennetegn = kjennetegnfelt.getText();
-       String merke = merkefelt.getText();
-       String type = typefelt.getText();
-       String regår = årfelt.getText();
-       String navn = navnfelt.getText();
-       String adresse = adressefelt.getText();
-       String nr = nrfelt.getText();
-       
-       if(kjennetegn.length() == 0 || merke.length() == 0
-	|| type.length() == 0 || regår.length() == 0 || nr.length() == 0)
-       {
-           visMelding("Fyll ut nødvendig informasjon!");
-           return;
-       }
-       try
-       {
-           
-           
-           Bileier bileier = new Person(navn, adresse, nr);
-           
-           liste.settInn(
+        String kjennetegn = kjennetegnfelt.getText();
+        String merke = merkefelt.getText();
+        String type = typefelt.getText();
+        String regår = årfelt.getText();
+        String navn = navnfelt.getText();
+        String adresse = adressefelt.getText();
+        String nr = nrfelt.getText();
+        
+        if(kjennetegn.length() == 0 || merke.length() == 0
+	|| type.length() == 0 || regår.length() == 0 || nr.length() == 0)        
+        {
+            visMelding("Fyll ut nødvendig informasjon");
+            return;
+            
+        }
+        if(navn.length()!=0 || adresse.length()!=0 || nr.length()!=0)
+        {
+            liste.settInn(
                    new Person(navn,adresse,nr));
-           register.settInn(
-                   new Bil(kjennetegn,merke,type,regår));
-           visMelding("Ny bil registrert");
-           slettFelter();
-       }
-       catch(NullPointerException n)
-       {
-           visMelding("Feil i registeret");
-       }
+            Bileier person = liste.finn(nr);
+            try
+            {
+                Bil ny = new Bil(kjennetegn,merke,type,regår,person);
+                Bileier find = liste.finn(nr);
+                if(register.finnBil(kjennetegn) == null)
+                {
+                    register.settInn(ny);
+                    visMelding("Bil registrert");
+                    slettFelter();
+                    return;
+                }
+                visMelding("Bilen finnes fra før, prøv med nytt reg.nummer");
+            }
+            catch(NullPointerException n)
+            {
+                visMelding("Det er feil i registeret, yo (Eieren finnes ikke)");
+            }
+        }
+            
+        /*try
+        {
+            Bil ny = new Bil(kjennetegn,merke,type,regår, );
+            Bileier find = liste.finn(nr);
+            if(liste.finnBil(kjennetegn)==null)
+            {
+                find.settInnBil(ny);
+                visMelding("Bil registrert");
+                slettFelter();
+                return;
+            }
+            visMelding("Bilen finnes fra før, prøv med nytt reg.nummer");
+        }
+        catch(NullPointerException n)
+        {
+            visMelding("Det er feil i registeret, yo (Eieren finnes ikke)");
+        }*/
     }
 
     public void nyBileierPers()
@@ -142,6 +167,7 @@ public class BileierGUI extends JFrame
        {
            visMelding("Feil i registeret");
        }
+       
     }
     
     public void nyBileierFirma()
@@ -196,7 +222,7 @@ public class BileierGUI extends JFrame
        try
        {
            utskriftsområde.setText("");
-           register.fjern(kjennetegn);
+           register.fjernBil(kjennetegn);
            slettFelter();
            
        }

@@ -6,11 +6,29 @@ import javax.swing.*;
 public class Bileierliste
 {
     private Bileier første;
-    private Bil first;
+    //private Bil first;
     
-    public void settInn(Bileier ny)
+    public boolean settInn(Bileier ny)
     {
-        if(første==null)
+        if(EierEmpty())
+        {
+            første = ny;
+            return true;
+        }
+        if(finn(ny.getNr())==null)
+        {
+            Bileier løper = første;
+            while(løper.neste != null)
+            {
+                løper = løper.neste;
+                
+            }
+            løper.neste = ny;
+            return true;
+            
+        }
+        return false;
+        /*if(første==null)
         {
             første = ny;
             return;
@@ -23,7 +41,7 @@ public class Bileierliste
                 løper = løper.neste;
             }
             løper.neste=ny;
-        }
+        }*/
     }
  
     public Bileier finn(String nr)
@@ -31,7 +49,7 @@ public class Bileierliste
         Bileier løper = første;
         while(løper != null)
         {
-            if((løper.getNr()).equalsIgnoreCase(nr))
+            if((løper.getNr()).equals(nr))
             {
                 return løper;
             }
@@ -89,33 +107,13 @@ public class Bileierliste
 
   public boolean EierEmpty()
   {
-        Bileier løper = første;
         if(første==null)
         {
-            while(løper.neste == null)
             return true;
         }
         return false;
   }
-  
-  public Bileier finnBileier(String nr)
-  {
-      Bileier løper = første;
-      while(løper!=null)
-      {
-          if((løper.getNr()).equals(nr))
-          {
-              return løper;
-          }
-          else
-          {
-              løper = løper.neste;
-          }
-      }
-      return null;
-  }
-
-    
+ 
   public void skrivListe(JTextArea bileiere)
   {
         if(første==null)

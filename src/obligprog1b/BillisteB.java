@@ -23,13 +23,16 @@ public class BillisteB
                 løper = løper.neste;
             }
             løper.neste = ny;
+            return;
         }  
     }
     public Bil finnBil(String kjennetegn)
     {
                 Bil løper = første;
-        while(løper != null){
-            if((løper.getKjennetegn()).equalsIgnoreCase(kjennetegn)){
+        while(løper != null)
+        {
+            if((løper.getKjennetegn()).equalsIgnoreCase(kjennetegn))
+            {
                 return løper;
             }
             else{
@@ -41,18 +44,23 @@ public class BillisteB
     
     public boolean fjernBil(String kjennetegn)
     {
-        if((første.getKjennetegn()).equalsIgnoreCase(kjennetegn)){
+        if((første.getKjennetegn()).equalsIgnoreCase(kjennetegn))
+        {
             første = første.neste;
             return true;
         }
-        else{
+        else
+        {
             Bil løper = første;
-            while(løper.neste!=null){
-                if((løper.neste.getKjennetegn()).equalsIgnoreCase(kjennetegn)){
+            while(løper.neste!=null)
+            {
+                if((løper.neste.getKjennetegn()).equalsIgnoreCase(kjennetegn))
+                {
                     løper.neste = løper.neste.neste;
                     return true;
                 }
-                else{
+                else
+                {
                     løper = løper.neste;
                 }
             }
@@ -60,34 +68,6 @@ public class BillisteB
         }
     }
        
-    public Bil fjern( String kjennetegn )
-    {
-            if( første == null ) 
-                return null;
-
-            if( første.getKjennetegn().equals( kjennetegn ) )
-            {
-                Bil retur = første;
-                første = første.neste;
-                return retur;
-            }
-
-            Bil løper = første;
-
-            while( løper.neste != null )
-            {
-                if( løper.neste.getKjennetegn().equals( kjennetegn ) )
-                {
-                    Bil retur = løper.neste;
-                    løper.neste = løper.neste.neste;
-                    return retur;
-                }
-                else
-                løper = løper.neste;
-                }
-
-            return null;
-  }
     public boolean BilEmpty()
     {
         if(første==null)
@@ -99,6 +79,18 @@ public class BillisteB
             return false;
         }
     }
+    
+    /*public String skrivListe()
+    {
+        String print = "";
+        Bil løper = første;
+        while(løper != null)
+        {
+            print += løper.toString() + "\n";
+            løper = løper.neste;
+        }
+        return print;
+    }*/
         
   public void skrivListe(JTextArea biler)
   {
