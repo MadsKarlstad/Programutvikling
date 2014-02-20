@@ -38,7 +38,6 @@ public class BileierGUI extends JFrame
         finnBil = new JButton("Finn bil");
         fjernBil = new JButton("Fjern bil");
         visAlle = new JButton("Vis bilregisteret");
-        visEiere = new JButton("Vis alle bileiere");
         slettEier = new JButton("Slett bileier");
         utskriftsområde = new JTextArea(15,45);
         utskriftsområde.setEditable(false);
@@ -64,7 +63,6 @@ public class BileierGUI extends JFrame
         c.add(finnBil);
         c.add(fjernBil);
         c.add(visAlle);
-        c.add(visEiere);
         c.add(regEierP);
         c.add(regEierF);
         c.add(slettEier);
@@ -78,7 +76,6 @@ public class BileierGUI extends JFrame
         finnBil.addActionListener(lytter);
         fjernBil.addActionListener(lytter);
         visAlle.addActionListener(lytter);
-        visEiere.addActionListener(lytter);
         slettEier.addActionListener(lytter);
         setSize(620,500);
         setVisible(true);
@@ -325,8 +322,6 @@ public class BileierGUI extends JFrame
                 slettBil();
             else if ( e.getSource() == visAlle )
                 visRegister();
-            else if ( e.getSource() == visEiere )
-                visEiere();
             else if ( e.getSource() == slettEier )
                 slettEier();
         }
