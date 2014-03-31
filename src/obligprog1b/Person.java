@@ -16,7 +16,7 @@ public class Person extends Bileier
     
     public String getNr()
     {
-        return personnr;
+        return perr;
     }
     
     public String toString()
