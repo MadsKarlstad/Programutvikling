@@ -28,5 +28,6 @@ public class Person extends Bileier
         
         return s;
     }
-    //dette er en test
+    //dette er en test hallololol
+
 }
